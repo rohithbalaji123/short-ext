@@ -6,7 +6,7 @@ steps:
   - name: build
     image: alpine
     commands:
-      - echo hello world
+      - echo $DRONE_TAG
 trigger:
   event:
-    - push
+    - tag
