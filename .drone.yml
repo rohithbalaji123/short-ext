@@ -7,8 +7,12 @@ steps:
     image: node:12.7.0-alpine
     commands:
       - echo $DRONE_TAG
-      - ls
-      - pwd
+      - apk add --no-cache bash zip
+      - yarn
+      - yarn build:production
+      - zip -r build/short-ext.zip build/* -x "*.DS_Store"
+      - cat build/manifest.json
+      - ls build
     when:
       event:
         - push
