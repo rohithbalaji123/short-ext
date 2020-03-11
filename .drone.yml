@@ -9,21 +9,18 @@ steps:
       - echo $DRONE_TAG
       - apk add --no-cache bash zip
       - yarn
-      - yarn build:production
+      - GIT_TAG=$DRONE_TAG yarn build:production
       - zip -r build/short-ext.zip build/* -x "*.DS_Store"
       - cat build/manifest.json
       - ls build
     when:
       event:
         - push
-#
-#  - name: publish extension
-#    image: curl-docker
-#    commands:
-#      -
-#    when:
-#      event:
-#        - tag
-#volumes:
-#  - name: build
-#    temp: {}
+
+  - name: publish extension
+    image: curl-docker
+    commands:
+      - ls build
+    when:
+      event:
+        - push
