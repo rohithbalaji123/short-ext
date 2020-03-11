@@ -4,9 +4,22 @@ name: default
 
 steps:
   - name: build
-    image: alpine
+    image: node:12.7.0-alpine
     commands:
       - echo $DRONE_TAG
-trigger:
-  event:
-    - tag
+      - ls
+      - pwd
+    when:
+      event:
+        - push
+#
+#  - name: publish extension
+#    image: curl-docker
+#    commands:
+#      -
+#    when:
+#      event:
+#        - tag
+#volumes:
+#  - name: build
+#    temp: {}
