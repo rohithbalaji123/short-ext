@@ -16,4 +16,4 @@ steps:
       - curl google.com
     when:
       event:
-        - push
+        - tag
