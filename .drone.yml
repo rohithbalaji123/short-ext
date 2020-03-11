@@ -7,20 +7,13 @@ steps:
     image: node:12.7.0-alpine
     commands:
       - echo $DRONE_TAG
-      - apk add --no-cache bash zip
+      - apk add --no-cache bash zip curl
       - yarn
       - GIT_TAG=$DRONE_TAG yarn build:production
       - zip -r build/short-ext.zip build/* -x "*.DS_Store"
       - cat build/manifest.json
       - ls build
-    when:
-      event:
-        - push
-
-  - name: publish extension
-    image: curl-docker
-    commands:
-      - ls build
+      - curl google.com
     when:
       event:
         - push
