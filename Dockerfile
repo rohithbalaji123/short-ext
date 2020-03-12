@@ -9,3 +9,4 @@ ARG GIT_TAG
 RUN apk add --no-cache zip
 RUN yarn
 RUN yarn build:production
+RUN cat build/manifest.json
