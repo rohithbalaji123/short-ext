@@ -11,6 +11,25 @@ steps:
       - name: docker
         path: /var/run/docker.sock
 
+  - name: upload and publish extension
+    image: short-ext
+    environment:
+      EXTENSION_ID:
+        from_secret: EXTENSION_ID
+      CLIENT_ID:
+        from_secret: CLIENT_ID
+      CLIENT_SECRET:
+        from_secret: CLIENT_SECRET
+      REFRESH_TOKEN:
+        from_secret: REFRESH_TOKEN
+    pull: never
+    commands:
+      - yarn global add chrome-webstore-upload-cli
+      - webstore upload --auto-publish --source build/short-ext.zip --extension-id $EXTENSION_ID --client-id $CLIENT_ID --client-secret $CLIENT_SECRET --refresh-token $REFRESH_TOKEN
+    volumes:
+      - name: docker
+        path: /var/run/docker.sock
+
 trigger:
   event:
     - tag
